@@ -1,107 +1,85 @@
 import "./App.css";
-import { LuBicepsFlexed } from "react-icons/lu";
-import { FaHouse } from "react-icons/fa6";
-import { SiBookstack } from "react-icons/si";
-import { FaCarSide } from "react-icons/fa6";
+import "./SidiBarItem.css";
+import CreateNewTask from "./components/CreateNewTask";
+import MobalProject from "./components/GroupItem";
+import ListButton from "./components/ListButton";
+import NavigationItem from "./components/NavigationItem";
+import HeaderToday from "./components/HeaderToday";
+import SidiBarItem from "./components/SidiBarItem";
+import React, { useState } from "react";
+import ReadBook from "./components/ReadBook";
 
 function App() {
+  const [tasks, setTask] = useState([{
+    title: "прочитать книгу",
+    date: "08.00-09.00",
+  },
+  {
+    title: "Создание каркаса нового продукта",
+    date: "09.00-11.00",
+  },
+  {
+    title: "Целевая страница мудборда",
+    date: "11.00-13.00",
+  },
+  {
+    title: "Еженедельная встреча",
+    date: "13.00-14.00",
+  },
+  {
+    title: "Разработайте PPT для совместного сеанса № 2",
+    date: "14.00-16.00",
+  },
+  {
+    title: "смотреть Netflix - Сага о Висланде",
+    date: "19.00-20.00",
+  }]);
+
+  const saveChange = (newTask) => {
+    setTask(prevTasks => [...prevTasks, newTask]);
+}
+
   return (
-    <div className="App-container">
+    <div className="app-container">
       <div className="left-container">
-        <span className="private">Private</span>
+        <span className="private">Частный</span>
         <div className="list">
-          <div className="private-list">
-            <div className="list-item">
-              <FaHouse className="icons-list" />
-              <span className="list-container">Home</span>
+          <NavigationItem name="дом" icon="house" count="16" />
+          <SidiBarItem title="завершенный" count="16" />
+          <SidiBarItem title="личный" count="4" />
+          <SidiBarItem title="работа" count="6" />
+          <NavigationItem name="диета" icon="diet" count="11" />
+          <NavigationItem name="книга" icon="book" count="12" />
+          <NavigationItem name="машина" icon="car" count="13" />
+          <ListButton letter="L" text="+ создать новый список" />
+
+          <h3 style={{ marginLeft: "10px" }}>Группа</h3>
+
+          <div style={{ display: "flex" }}>
+            <div className="top-group">
+              <div className="left-group"></div>
+              <MobalProject people="5" projectname="мобильный" />
             </div>
-            <span className="number">8</span>
-          </div>
-          <div className="private-list">
-            <div className="list-item">
-              <div className="general-style-icon"></div>
-              <span className="list-container">completed</span>
+            <div className="top-group">
+              <div className="left-group"></div>
+              <MobalProject people="4" projectname="будущий" />
             </div>
-            <span className="number">16</span>
-          </div>
-          <div className="private-list">
-            <div className="list-item">
-              <div className="general-style-icon"></div>
-              <span className="list-container">Personal</span>
-            </div>
-            <span className="number">4</span>
-          </div>
-          <div className="private-list">
-            <div className="list-item">
-              <div className="general-style-icon"></div>
-              <span className="list-container">Work</span>
-            </div>
-            <span className="number">6</span>
-          </div>
-          <div className="private-list">
-            <div className="list-item">
-              <LuBicepsFlexed color="yellow" className="icons-list" />
-              <span className="list-container">Diet</span>
-            </div>
-            <span className="number">3</span>
-          </div>
-          <div className="private-list">
-            <div className="list-item">
-              <SiBookstack className="icons-list" />
-              <span className="list-container">List of book</span>
-            </div>
-            <span className="number">8</span>
-          </div>
-          <div className="private-list">
-            <div className="list-item">
-              <FaCarSide color="red" className="icons-list" />
-              <span className="list-container">Road trip list</span>
-            </div>
-            <span className="number">6</span>
           </div>
 
-          <div className="list-bottom">
-            <span style={{ fontSize: "25px", marginLeft: "10px" }}>
-              + Create new list
-            </span>
-            <div style={{ display: "flex" }}>
-              <span className="letter-l">⌘</span>
-              <span className="letter-l">L</span>
-            </div>
-          </div>
-          <h2 style={{ marginLeft: "10px" }}>Group</h2>
-          <div className="top-group">
-            <div className="left-group"></div>
-            <div className="left-group"></div>
-          </div>
-          <div style={{ display: "flex" }}>
-            <div className="mobal-people">
-              <span className="mobal">
-                <b>Mobal project</b>
-              </span>
-              <span className="people">5 people</span>
-            </div>
-            <div className="mobal-people">
-              <span className="mobal">
-                <b>Mobal project</b>
-              </span>
-              <span className="people">5 people</span>
-            </div>
-          </div>
-          <div className="list-bottom">
-            <span style={{ fontSize: "25px", marginLeft: "10px" }}>
-              + Create new group
-            </span>
-            <div style={{ display: "flex" }}>
-              <span className="letter-l">⌘</span>
-              <span className="letter-l">G</span>
-            </div>
-          </div>
+          <ListButton text="+ создать новую группу" letter="G" />
         </div>
       </div>
-      <div className="right-container"></div>
+      <div className="right-container">
+        <HeaderToday username="Салливан" />
+
+        <div className="right-center-container">
+          {tasks.map((task) => (
+            <ReadBook key={task.id} bookname={task.title} time={task.date} />
+          ))}
+        </div>
+        <CreateNewTask saveChange={saveChange}/>
+      </div>
     </div>
   );
 }
-
 export default App;
