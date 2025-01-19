@@ -10,35 +10,54 @@ import React, { useState } from "react";
 import ReadBook from "./components/ReadBook";
 
 function App() {
-  const [tasks, setTask] = useState([{
-    title: "прочитать книгу",
-    date: "08.00-09.00",
-  },
-  {
-    title: "Создание каркаса нового продукта",
-    date: "09.00-11.00",
-  },
-  {
-    title: "Целевая страница мудборда",
-    date: "11.00-13.00",
-  },
-  {
-    title: "Еженедельная встреча",
-    date: "13.00-14.00",
-  },
-  {
-    title: "Разработайте PPT для совместного сеанса № 2",
-    date: "14.00-16.00",
-  },
-  {
-    title: "смотреть Netflix - Сага о Висланде",
-    date: "19.00-20.00",
-  }]);
+  const [tasks, setTask] = useState([
+    {
+      title: "прочитать книгу",
+      date: "08.00-09.00",
+      isChecked: false,
+      id: 1,
+    },
+    {
+      title: "Создание каркаса нового продукта",
+      date: "09.00-11.00",
+      isChecked: false,
+      id: 2,
+    },
+    {
+      title: "Целевая страница мудборда",
+      date: "11.00-13.00",
+      isChecked: false,
+      id: 3,
+    },
+    {
+      title: "Еженедельная встреча",
+      date: "13.00-14.00",
+      isChecked: false,
+      id: 4,
+    },
+    {
+      title: "Разработайте PPT для совместного сеанса № 2",
+      date: "14.00-16.00",
+      isChecked: false,
+      id: 5,
+    },
+    {
+      title: "смотреть Netflix - Сага о Висланде",
+      date: "19.00-20.00",
+      isChecked: false,
+      id: 6,
+    },
+  ]);
 
   const saveChange = (newTask) => {
-    setTask(prevTasks => [...prevTasks, newTask]);
-}
+    setTask((prevTasks) => [...prevTasks, newTask]);
+  };
 
+  const onChange = (newTask) => {
+    const items = tasks.map((task) => task.id === newTask.id ? newTask : task)
+    setTask(() => items);
+  };
+  
   return (
     <div className="app-container">
       <div className="left-container">
@@ -74,10 +93,14 @@ function App() {
 
         <div className="right-center-container">
           {tasks.map((task) => (
-            <ReadBook key={task.id} bookname={task.title} time={task.date} />
+            <ReadBook
+              key={task.id}
+              task={task}
+              onChange={onChange}
+            />
           ))}
         </div>
-        <CreateNewTask saveChange={saveChange}/>
+        <CreateNewTask saveChange={saveChange} />
       </div>
     </div>
   );

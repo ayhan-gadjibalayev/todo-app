@@ -152,7 +152,6 @@ body {
 
 .center-block {
   display: flex;
-  text-decoration: line-through;
   width: 100%;
   margin-top: 5px;
   height: 50px;
@@ -265,4 +264,13 @@ body {
   cursor: pointer;
   margin-top: 30px;
   background-color: blue;
+}
+
+.line-through {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.is-active {
+  text-decoration: line-through;
 }
