@@ -4,32 +4,43 @@ import { LuBicepsFlexed } from "react-icons/lu";
 import { FaCarSide } from "react-icons/fa6";
 import { SiBookstack } from "react-icons/si";
 
-export default function NavigationItem(props) {
-  const { icon, name, count } = props;
+const Sidebar = [
+  {
+    name: "дом",
+    icon: <FaHouse />,
+    count: "16",
+    id: 1,
+  },
+  {
+    name: "диета",
+    icon: <LuBicepsFlexed />,
+    count: "11",
+    id: 2,
+  },
+  {
+    name: "книга",
+    icon: <SiBookstack />,
+    count: "12",
+    id: 3,
+  },
+  {
+    name: "машина",
+    icon: <FaCarSide />,
+    count: "13",
+    id: 4,
+  },
+];
 
-  const renderView = () => {
-    switch (icon) {
-      case 'house':
-        return <FaHouse />;
-      case 'diet':
-        return <LuBicepsFlexed/>
-      case 'book':
-        return <SiBookstack/>;
-      case "car":
-        return <FaCarSide/>;
-      default:
-    }
-  };
-
-  const newIcon = renderView();
-
+export default function NavigationItem() {
   return (
-      <div className="private-list">
-        <div className="list-item">
-          {newIcon}
-          <span className="list-container">{name}</span>
+    <div className="private-list">
+      {Sidebar.map(item => (
+        <div className="list-item" key={item.id}>
+          {item.icon}
+          <span className="list-container">{item.name}</span>
+          <span className="number">{item.count}</span>
         </div>
-        <span className="number">{count}</span>
-      </div>
+      ))}
+    </div>
   );
 }

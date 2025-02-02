@@ -138,15 +138,14 @@ body {
 }
 
 .equals {
-  width: 40px;
-  height: 40px;
+  padding: 10px;
   font-size: 30px;
   border-radius: 10px;
   background-color: #FFFFFF;
   margin-left: 10px;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  margin-top: 5px;
   justify-content: center;
 }
 
@@ -272,5 +271,7 @@ body {
 }
 
 .is-active {
+  margin-left: 10px;
+  margin-right: 10px;
   text-decoration: line-through;
 }
