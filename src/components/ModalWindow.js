@@ -7,12 +7,12 @@ export default function ModalWindow(props) {
         <div className="modalwindow">
             <input 
                 className="modal-input" 
-                placeholder="Create new task" 
+                placeholder="Создать новую задачу" 
                 value={taskInput}
                 onChange={(e) => setTaskInput(e.target.value)}
             />
-            <textarea placeholder="add notes" className="add-notes"></textarea>
-            <button className="save-change" onClick={saveChange}>Save change</button>
+            <textarea placeholder="добавить заметки" className="add-notes"></textarea>
+            <button className="save-change" onClick={saveChange}>Сохранить задачу</button>
         </div>
     )
 }
