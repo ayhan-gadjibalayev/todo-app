@@ -5,11 +5,11 @@ export default function SidiBarItem(props) {
 
   return (
       <div className="private-list">
-        <div className="list-item">
-          <input type="checkbox" className="checkbox" />
+        <div>
           <span className="list-container">{title}</span>
         </div>
-        <span className="number">{count}</span>
+        <span className="number" count={count}></span>
       </div>
   );
 }
+ 

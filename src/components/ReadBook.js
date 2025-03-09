@@ -25,7 +25,7 @@ export default function ReadBook(props) {
       </div>
       <div className="all-block-right">
         <div className="time">
-          <IoTimeOutline style={{ fontSize: "15px" }} />
+          <IoTimeOutline style={{ fontSize: "1px" }} />
           <span>{task.date}</span>
         </div>
         <span className="theer-dots">⁝</span>

@@ -2,75 +2,169 @@ import "./App.css";
 import "./SidiBarItem.css";
 import CreateNewTask from "./components/CreateNewTask";
 import MobalProject from "./components/GroupItem";
-import ListButton from "./components/ListButton";
+import ListButton from "./components/CreateNewListWindow";
 import NavigationItem from "./components/NavigationItem";
 import HeaderToday from "./components/HeaderToday";
 import SidiBarItem from "./components/SidiBarItem";
 import React, { useState } from "react";
 import ReadBook from "./components/ReadBook";
+import { SiBookstack } from "react-icons/si";
+import { LuBicepsFlexed } from "react-icons/lu";
+import { FaHouse } from "react-icons/fa6";
+import { FaCarSide } from "react-icons/fa";
 
-function App() {
-  const [tasks, setTask] = useState([
+export default function App() {
+  const [active, setActive] = useState();
+  const [taskList, setTaskList] = useState([
     {
-      title: "прочитать книгу",
-      date: "08.00-09.00",
-      isChecked: false,
+      name: "дом",
+      icon: <FaHouse />,
+      count: 3,
       id: 1,
+      tasks: [
+        {
+          title: "прочитать книгу",
+          date: "08.00-09.00",
+          isChecked: false,
+          id: 1,
+          parentId: 1,
+        },
+        {
+          title: "Создание каркаса нового продукта",
+          date: "09.00-11.00",
+          isChecked: false,
+          id: 2,
+          parentId: 1,
+        },
+        {
+          title: "Целевая страница мудборда",
+          date: "11.00-13.00",
+          isChecked: false,
+          id: 3,
+          parentId: 1,
+        },
+      ],
     },
     {
-      title: "Создание каркаса нового продукта",
-      date: "09.00-11.00",
-      isChecked: false,
+      name: "диета",
+      icon: <LuBicepsFlexed />,
+      count: 1,
       id: 2,
+      tasks: [
+        {
+          title: "Еженедельная встреча",
+          date: "13.00-14.00",
+          isChecked: false,
+          id: 4,
+          parentId: 2,
+        },
+      ],
     },
     {
-      title: "Целевая страница мудборда",
-      date: "11.00-13.00",
-      isChecked: false,
+      name: "книга",
+      icon: <SiBookstack />,
+      count: 2,
       id: 3,
+      tasks: [
+        {
+          title: "Разработайте PPT для совместного сеанса № 2",
+          date: "14.00-16.00",
+          isChecked: false,
+          id: 5,
+          parentId: 3,
+        },
+        {
+          title: "смотреть Netflix - Сага о Висланде",
+          date: "19.00-20.00",
+          isChecked: false,
+          id: 6,
+          parentId: 3,
+        },
+      ],
     },
     {
-      title: "Еженедельная встреча",
-      date: "13.00-14.00",
-      isChecked: false,
+      name: "машина",
+      icon: <FaCarSide />,
+      count: 0,
       id: 4,
-    },
-    {
-      title: "Разработайте PPT для совместного сеанса № 2",
-      date: "14.00-16.00",
-      isChecked: false,
-      id: 5,
-    },
-    {
-      title: "смотреть Netflix - Сага о Висланде",
-      date: "19.00-20.00",
-      isChecked: false,
-      id: 6,
+      tasks: [],
     },
   ]);
 
-  const saveChange = (newTask) => {
-    setTask((prevTasks) => [...prevTasks, newTask]);
+  const saveChange = (newTask, parentId) => {
+    setTaskList((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === parentId
+          ? {
+              ...task,
+              tasks: [...task.tasks, newTask],
+              count: task.tasks.length + 1,
+            }
+          : task
+      )
+    );
   };
 
-  const onChange = (newTask) => {
-    const items = tasks.map((task) => task.id === newTask.id ? newTask : task)
-    setTask(() => items);
+  const onChange = (updatedTask) => {
+    setTaskList((prevTasks) =>
+      prevTasks.map((task) => {
+        if (task.id === updatedTask.parentId) {
+          return {
+            ...task,
+            tasks: task.tasks.map((task) =>
+              task.id === updatedTask.id ? updatedTask : task
+            ),
+          };
+        } else {
+          return task;
+        }
+      })
+    );
   };
-  
+
+  const addNewList = (listName) => {
+    const newList = {
+      name: listName,
+      icon: <FaHouse />,
+      count: "0",
+      id: Date.now(),
+      tasks: [],
+    };
+    setTaskList((prevTasks) => [...prevTasks, newList]);
+  };
+
+  const getTasks = () => {
+    const activeTask = taskList.find((task) => task.id === active);
+    return activeTask ? activeTask.tasks : [];
+  };
+
+  const deleteTask = (taskId) => {
+    setTaskList((prevTasks) =>
+      prevTasks.map((task) => ({
+        ...task,
+        tasks: task.tasks.filter((task) => task.id !== taskId),
+      }))
+    );
+    console.log(taskId)
+};
+
   return (
     <div className="app-container">
       <div className="left-container">
         <span className="private">Частный</span>
         <div className="list">
-          <NavigationItem name="дом" icon="house" count="16" />
-          <SidiBarItem title="завершенный" count="16" />
-          <SidiBarItem title="личный" count="4" />
-          <SidiBarItem title="работа" count="6" />
-          <NavigationItem name="диета" icon="diet" count="11" />
-          <NavigationItem name="книга" icon="book" count="12" />
-          <NavigationItem name="машина" icon="car" count="13" />
-          <ListButton letter="L" text="+ создать новый список" />
+          <NavigationItem
+            taskList={taskList}
+            active={active}
+            setActive={setActive}
+          />
+          <ListButton
+            letter="L"
+            text="+ создать новый список"
+            addNewList={addNewList}
+          />
+
+          <SidiBarItem />
 
           <h3 style={{ marginLeft: "10px" }}>Группа</h3>
 
@@ -85,24 +179,33 @@ function App() {
             </div>
           </div>
 
-          <ListButton text="+ создать новую группу" letter="G" />
+          <ListButton
+            text="+ создать новую группу"
+            letter="G"
+            addNewList={addNewList}
+          />
         </div>
       </div>
       <div className="right-container">
-        <HeaderToday username="Салливан" />
+        <HeaderToday
+          username="Салливан"
+          buttondelete={deleteTask}
+          taskId={active}
+        />
 
         <div className="right-center-container">
-          {tasks.map((task) => (
+          {getTasks().map((task) => (
             <ReadBook
               key={task.id}
               task={task}
               onChange={onChange}
+              deleteTask={deleteTask}
+              isActive={active === task.parentId}
             />
           ))}
         </div>
-        <CreateNewTask saveChange={saveChange} />
+        <CreateNewTask saveChange={saveChange} active={active} />
       </div>
     </div>
   );
 }
-export default App;

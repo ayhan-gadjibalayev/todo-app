@@ -2,7 +2,7 @@ import React from "react";
 import { IoTrashBin } from "react-icons/io5";
 
 export default function HeaderToday(props) {
-  const { username, buttondelete } = props;
+  const { username, buttondelete, taskId } = props;
 
   const today = new Date();
 
@@ -43,8 +43,10 @@ export default function HeaderToday(props) {
           <span className="down-arrow">⮟</span>
           <span style={{ fontSize: "20px", marginLeft: "10px" }}>Сегодня</span>
         </div>
-        <IoTrashBin className="equals" onClick={buttondelete} />
+        <IoTrashBin className="equals" onClick={() => buttondelete(taskId)} />
+
+
+
       </div>
     </div>
-  );
-}
+  )};

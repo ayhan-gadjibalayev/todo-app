@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import ModalWindow from "./ModalWindow";
+import ModalWindow from "./CreateNewTaskWindow";
 
 export default function CreateNewTask(props) {
-
     const [isOpen, setIsOpen] = useState(false);
     const [taskInput, setTaskInput] = useState('');
-    const { saveChange } = props;
+    const { saveChange, active } = props;
 
     const createTask = () => {
+        setTaskInput('');
         setIsOpen(prevState => !prevState);
+
     }
 
     const currentDateTime = new Date().toLocaleString();
@@ -18,7 +19,11 @@ export default function CreateNewTask(props) {
             saveChange({
                 title: taskInput,
                 date: currentDateTime,
-            });
+                id: Date.now(),
+                isChecked: false,
+                parentId: active
+            }, active);
+
             setTaskInput('');
             setIsOpen(false);
         }
