@@ -133,7 +133,7 @@ export default function App() {
     return activeTask ? activeTask.tasks : [];
   };
 
-const deleteTask = () => {
+  const deleteTask = () => {
     setTaskList((prevTasks) => {
         return prevTasks.map((taskList) => {
             const newTasks = taskList.tasks.filter((task) => task.isChecked === false);
