@@ -18,7 +18,7 @@ export default function NavigationItem(props) {
             {item.icon}
             <span className="list-container">{item.name}</span>
           </div>
-          <span className="number">{item.count}</span>
+          <span className="number">{item.tasks?.length ?? 0}</span>
         </div>
       ))}
     </div>

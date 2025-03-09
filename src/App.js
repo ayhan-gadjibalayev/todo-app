@@ -19,7 +19,7 @@ export default function App() {
     {
       name: "дом",
       icon: <FaHouse />,
-      count: 3,
+    
       id: 1,
       tasks: [
         {
@@ -48,7 +48,6 @@ export default function App() {
     {
       name: "диета",
       icon: <LuBicepsFlexed />,
-      count: 1,
       id: 2,
       tasks: [
         {
@@ -63,7 +62,6 @@ export default function App() {
     {
       name: "книга",
       icon: <SiBookstack />,
-      count: 2,
       id: 3,
       tasks: [
         {
@@ -85,7 +83,6 @@ export default function App() {
     {
       name: "машина",
       icon: <FaCarSide />,
-      count: 0,
       id: 4,
       tasks: [],
     },
@@ -98,7 +95,6 @@ export default function App() {
           ? {
               ...task,
               tasks: [...task.tasks, newTask],
-              count: task.tasks.length + 1,
             }
           : task
       )
@@ -126,7 +122,6 @@ export default function App() {
     const newList = {
       name: listName,
       icon: <FaHouse />,
-      count: "0",
       id: Date.now(),
       tasks: [],
     };
@@ -138,15 +133,18 @@ export default function App() {
     return activeTask ? activeTask.tasks : [];
   };
 
-  const deleteTask = (taskId) => {
-    setTaskList((prevTasks) =>
-      prevTasks.map((task) => ({
-        ...task,
-        tasks: task.tasks.filter((task) => task.id !== taskId),
-      }))
-    );
-    console.log(taskId)
+const deleteTask = () => {
+    setTaskList((prevTasks) => {
+        return prevTasks.map((taskList) => {
+            const newTasks = taskList.tasks.filter((task) => task.isChecked === false);
+            return {
+                ...taskList,
+                tasks: newTasks,
+            };
+        });
+    });
 };
+
 
   return (
     <div className="app-container">
@@ -199,7 +197,6 @@ export default function App() {
               key={task.id}
               task={task}
               onChange={onChange}
-              deleteTask={deleteTask}
               isActive={active === task.parentId}
             />
           ))}
