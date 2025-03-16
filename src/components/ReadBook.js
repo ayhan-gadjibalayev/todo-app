@@ -8,7 +8,6 @@ export default function ReadBook(props) {
   function setChecked(event) {
     onChange({...task, isChecked: !task.isChecked});
   }
-
   return (
     <div className="center-block">
       <div className="all-block-left">
