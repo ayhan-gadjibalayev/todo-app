@@ -195,10 +195,10 @@ export default function App() {
         />
 
         <div className="right-center-container">
-          {active === undefined ? (
+          {!active ? (
             <span className="text-readbook">Чтобы увидеть задачи выберите список задач.</span>
           ) : getTasks().length === 0 ? (
-            <span className="text-readbook">Выбранном списке нет задач.</span>
+            <span className="empty-message">Выбранном списке нет задач.</span>
           )
           : 
           (
