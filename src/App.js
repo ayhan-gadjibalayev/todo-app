@@ -19,7 +19,6 @@ export default function App() {
     {
       name: "дом",
       icon: <FaHouse />,
-    
       id: 1,
       tasks: [
         {
@@ -135,16 +134,17 @@ export default function App() {
 
   const deleteTask = () => {
     setTaskList((prevTasks) => {
-        return prevTasks.map((taskList) => {
-            const newTasks = taskList.tasks.filter((task) => task.isChecked === false);
-            return {
-                ...taskList,
-                tasks: newTasks,
-            };
-        });
+      return prevTasks.map((taskList) => {
+        const newTasks = taskList.tasks.filter(
+          (task) => task.isChecked === false
+        );
+        return {
+          ...taskList,
+          tasks: newTasks,
+        };
+      });
     });
-};
-
+  };
 
   return (
     <div className="app-container">
@@ -192,14 +192,21 @@ export default function App() {
         />
 
         <div className="right-center-container">
-          {getTasks().map((task) => (
-            <ReadBook
-              key={task.id}
-              task={task}
-              onChange={onChange}
-              isActive={active === task.parentId}
-            />
-          ))}
+          {!active ? (
+            <span className="empty-message">Чтобы увидеть задачи выберите список задач.</span>
+          ) : getTasks().length === 0 ? (
+            <span className="empty-message">Выбранном списке нет задач.</span>
+          )
+          : 
+          (
+            getTasks().map((task) => (
+              <ReadBook
+                key={task.id}
+                task={task}
+                onChange={onChange}
+              />
+            ))
+          )}
         </div>
         <CreateNewTask saveChange={saveChange} active={active} />
       </div>

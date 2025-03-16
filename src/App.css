@@ -275,3 +275,10 @@ body {
   margin-right: 10px;
   text-decoration: line-through;
 }
+
+.empty-message {
+  font-size: 25px;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+}
