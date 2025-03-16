@@ -138,9 +138,6 @@ export default function App() {
         const newTasks = taskList.tasks.filter(
           (task) => task.isChecked === false
         );
-        if (newTasks.length === 0) {
-          console.log("Все задачи удалены.");
-        }
         return {
           ...taskList,
           tasks: newTasks,
