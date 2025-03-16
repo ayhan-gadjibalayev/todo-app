@@ -276,13 +276,6 @@ body {
   text-decoration: line-through;
 }
 
-.text-readbook {
-  font-size: 25px;
-  font-weight: 500;
-  display: flex;
-  justify-content: center;
-}
-
 .empty-message {
   font-size: 25px;
   font-weight: 500;

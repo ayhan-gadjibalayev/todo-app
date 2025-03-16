@@ -193,7 +193,7 @@ export default function App() {
 
         <div className="right-center-container">
           {!active ? (
-            <span className="text-readbook">Чтобы увидеть задачи выберите список задач.</span>
+            <span className="empty-message">Чтобы увидеть задачи выберите список задач.</span>
           ) : getTasks().length === 0 ? (
             <span className="empty-message">Выбранном списке нет задач.</span>
           )
