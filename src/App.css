@@ -232,7 +232,7 @@ body {
   flex-direction: column;
   border-radius: 20px;
   padding: 10px;
-  border: 1px solid black;
+  border: 10x solid black;
   background-color: #FFFFFF;
 }
 
@@ -274,4 +274,41 @@ body {
   margin-left: 10px;
   margin-right: 10px;
   text-decoration: line-through;
+}
+
+.modal-window {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 30vh;
+  width: 60vh;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+.true {
+  background-color: green;
+}
+
+.false {
+  background-color: red;
+}
+
+.same {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 40px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+}
+
+.true-false-group {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
 }

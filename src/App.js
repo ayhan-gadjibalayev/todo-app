@@ -1,5 +1,6 @@
 import "./App.css";
 import "./SidiBarItem.css";
+import DeleteTaskConfirmation from "./components/deleteTaskConfirmation";
 import CreateNewTask from "./components/CreateNewTask";
 import MobalProject from "./components/GroupItem";
 import ListButton from "./components/CreateNewListWindow";
@@ -19,7 +20,7 @@ export default function App() {
     {
       name: "дом",
       icon: <FaHouse />,
-    
+
       id: 1,
       tasks: [
         {
@@ -134,17 +135,23 @@ export default function App() {
   };
 
   const deleteTask = () => {
-    setTaskList((prevTasks) => {
-        return prevTasks.map((taskList) => {
-            const newTasks = taskList.tasks.filter((task) => task.isChecked === false);
-            return {
-                ...taskList,
-                tasks: newTasks,
-            };
-        });
-    });
-};
+    const selectedTasks = taskList.filter((taskList) =>
+      taskList.tasks.some((task) => task.isChecked)
+    );
 
+    if (selectedTasks.length > 0) {
+      console.log("получаем сообщение");
+    }
+    setTaskList((prevTasks) => {
+      return prevTasks.map((taskList) => {
+        const newTasks = taskList.tasks.filter((task) => task.isChecked === false);
+        return {
+          ...taskList,
+          tasks: newTasks,
+        };
+      });
+    });
+  };
 
   return (
     <div className="app-container">
@@ -200,6 +207,7 @@ export default function App() {
               isActive={active === task.parentId}
             />
           ))}
+          <DeleteTaskConfirmation />
         </div>
         <CreateNewTask saveChange={saveChange} active={active} />
       </div>
